@@ -6,7 +6,7 @@ const passport = require('passport');
 const session = require('express-session');
 const flash = require('connect-flash');
 
-const db = require("../config/DBConnection")
+const db = require("./config/DBConnection")
 db.connect();
 
 const app = express();
