@@ -1,0 +1,25 @@
+<%- layout('layouts/main') %>
+
+
+
+<link rel="stylesheet" href="/stylesheets/login.css">
+
+
+
+
+    <div class="login-wrap">
+      <div class="login-html">
+        <div style="display: flex; justify-content: center; align-items: center;">
+          <h1 style="color: white;">Renta Moda MX</h1>
+        </div>
+        <input id="tab-1" type="radio" name="tab-1" class="sign-in" checked>
+        <label for="tab-1" class="tab">Iniciar sesión</label>
+        <input  id="tab-2" type="radio" name="tab" class="sign-up">
+        <a  href="/signup" for="tab-2" class="tab">Registrarse</a>
+
+
+<form action="/signin" method="POST">
+  <input type="email" name="email" placeholder="Email">
+  <input type="password" name="password" placeholder="Password">
+  <button type="submit">SignIn</button>
+</form>

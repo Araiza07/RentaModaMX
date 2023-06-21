@@ -1,0 +1,39 @@
+<header>
+  <script>$('.dropdown-toggle').dropdown()</script>
+
+    <link rel="stylesheet" href="/stylesheets/header.css">
+
+
+    <nav class="navbar">
+      <div class="navbar-logo">
+        <img src="logo.png" alt="Logo de la tienda de ropa">
+      </div>
+      <ul class="navbar-menu">
+        <li><a href="/">Inicio</a></li>
+        
+        <li><a href="/productos">Productos</a></li>
+
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink">
+            Administración
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" href="/creacion-productos">Creación de Productos</a></li>
+            <li><a class="dropdown-item" href="#">Vista General</a></li>
+          </ul>
+        </li>
+        
+        
+        <li><a href="/ofertas">Categorias</a></li>
+        <li><a href="/contacto">Contacto</a></li>
+      </ul>
+      <div class="navbar-cart">
+        <a href="/carrito" class="cart-link">
+          <i class="fa fa-shopping-cart"></i>
+          <span class="cart-count">0</span>
+        </a>
+      </div>
+    </nav>
+  </header>
+  
