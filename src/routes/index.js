@@ -3,7 +3,8 @@ const passport = require('passport');
 const router = express.Router();
 const Producto = require('../models/Productos');
 const multer = require('multer');
-
+const path = require("path");
+const fs = require("fs");
 
 router.get('/', (req, res, next) => {
   res.render('signin');
@@ -58,7 +59,7 @@ router.get('/dashboard', (req, res, next) => {
 // Subir imágenes
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./uploads");
+    cb(null, path.join(__dirname,"../public/img/"));
   },
   filename: function (req, file, cb) {
     cb(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
@@ -104,7 +105,44 @@ router.get('/productos',async  (req, res, next) => {
     console.log(error)
   }
 });
+router.get("/edit/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await Producto.findById(id);
+    console.log(data);
+    res.render("products/edit", { data });
+  } catch (e) {
+    console.log(e);
+    res.status(404).render("error/error", { status: "404" });
+  }
+});
+router.post("/ActualizarProducto/:id", upload.single("imagen"), async(req, res) => {
+  const { id } = req.params;
+  const data = req.body;
+  if (req.file != undefined) {
+    data.imagen = req.file.filename
 
+  }
+  console.log(data);
+  await Producto.findByIdAndUpdate(id, data);
+  res.redirect("/productos")
+})
+router.get("/EliminarProducto/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleting = await Producto.findById(id);
+    await Producto.findByIdAndDelete(id);
+    console.log("Producto Eliminado");
+    /*req.flash(
+      "status",
+      `El artículo ${deleting.nombre} se ha eliminado correctamente..`
+    );*/
+    res.redirect("/productos");
+  } catch (e) {
+    console.log(e)
+   /* res.status(404).render("error/error", { status: "404" });*/
+  }
+});
 
 
 

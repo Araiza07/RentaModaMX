@@ -20,14 +20,13 @@
                     <thbody>
                         <%data.forEach(function(item) {%>
                         <tr>
-                            <td><img src="/uploads/<%=item.imagen%>"></td>
+                            <td><img src="/img/<%=item.imagen%>"></td>
                             <td><%=item.nombre%>  </td>
                             <td><%=item.descripcion%></td>
                             <td><%=item.precio%></td>
                             <td>
-                                <a href="" class="text-success" ><i class="fa fa-edit fa-lg mx-1"></i></a>
-                                <a href="/<%=item._id%>/edit" lass="text-success"><i class="fa fa-edit fa-lg mx-1"></i></a>
-                                <a href="" class="text-danger" ><i class="fa fa-trash fa-lg mx-1"></i></a>
+                                <a href="/edit/<%=item._id%>" class="text-success"><i class="fa fa-edit fa-lg mx-1"></i></a>
+                                <a href="/EliminarProducto/<%=item._id%>" class="text-danger" ><i class="fa fa-trash fa-lg mx-1"></i></a>
                             </td>
                         </tr>
                         <%})%>
