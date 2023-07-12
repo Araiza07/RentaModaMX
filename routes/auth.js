@@ -138,7 +138,7 @@ router.post("/register", upload.single("image"), async (req, res) => {
 
 router.get('/autocomplete', function(req, res) {
   var rutas = [
-    { label: 'Todos los libros', value: '/bookAll' },
+    { label: 'Todos los prodcutos', value: '/productAll' },
     { label: 'Inicio', value: '/' },
     { label: 'Novedades', value: '/novedades' },
     { label: 'Categorias', value: '/categorias' },

@@ -36,7 +36,7 @@ router.get("/", currentUrl, async (req, res) => {
   }
 });
 
-router.get("/bookAll", currentUrl, async (req, res) => {
+router.get("/productAll", currentUrl, async (req, res) => {
   try {
     
     const data = await Product.find({});
