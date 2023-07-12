@@ -46,12 +46,16 @@
         <div class="col-6">
           <div class="card" style="width: 18rem; margin-top: 4rem;">
             <div class="card-body">
-              <h5 class="card-title">Nombre del Producto: <br> <%=data.name%></h5> <br>
-              <h6 class="card-subtitle mb-2 text-body-secondary">Categoria: <%=data.categoria%></h6> <br>
-              <h6 class="card-subtitle mb-2 text-body-secondary">Talla: <%=data.Talla%></h6> <br>
-              <h6 class="card-subtitle mb-2 text-body-secondary">Color: <%=data.color%></h6> <br>
+              <h5 class="card-title">Nombre del Libro: <br> <%=data.name%></h5> <br>
+              <h6 class="card-subtitle mb-2 text-body-secondary">Autor: <%=data.autor%></h6>
+              <h6 class="card-subtitle mb-2 text-body-secondary">Categoria: <%=data.categoria%></h6>
               <p class="card-text">Precio:  &#36;<%=data.price%> <br>
-
+                                   Editorial: <%=data.editorial%> <br>
+                                   Edicion: <%= data.edicion %> <br>
+                                   Fecha de publicacion: <%= data.publicacion %><br>
+                                   Numero de paginas: <%= data.paginas %> <br>
+                                   ISBN: <%= data.isbn %><br>
+                                   Idioma: <%= data.idioma %><br>
                                    Disponibilidad: <% if(data.activo == true){%> Disponible <% }else{%> No disponible <%}%></p>
             </div>
           </div>

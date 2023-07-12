@@ -37,6 +37,26 @@ const productSchema=new mongoose.Schema({
          type: String,
          require: true
      },
+    // edicion: {
+    //     type: String,
+    //     require: true
+    // },
+    // publicacion: {
+    //     type: String, 
+    //     require: true
+    // },
+    // paginas: {
+    //     type: String,
+    //     require: true
+    // },
+    // isbn: {
+    //     type: Number,
+    //     require: true
+    // },
+    // idioma:{
+    //     type: String,
+    //     require: true
+    // },
     //Este apartado es para seleccionar una categoria
     categoria:{
         type: String,
