@@ -59,6 +59,22 @@
                     </select>
                   </div>
 
+                     <!--Estado del 88% de la historia de usuario Editar producto Se agrega el campo para modificar el Color-->
+                  
+              <div class="form-outline mb-4">
+                <label class="form-label" for="color">Color</label>
+                <select class="form-select" id="color" name="color" >
+                  <option selected disabled value=""><%= data.color %></option>
+                  <% for(item of color.reverse()){ %>
+                    <% if (item.colores !== data.color) { %>
+                      <option value="<%= item.colores %>"><%=item.colores%></option>
+                    <% } %>
+                  <% } %>
+                  <div class="valid-feedback">¡Datos válidos!</div>
+                <div class="invalid-feedback">Selecciona una categoría válida</div>
+                </select>
+              </div>
+
                   <div class="btn-container d-flex flex-column w-50 justify-center m-auto">
                     <button type="submit" class="btn btn-primary mb-4">Guardar</button>
                     <button type="reset" class="btn btn-primary mb-4">Restablecer</button>
