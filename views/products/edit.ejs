@@ -46,18 +46,32 @@
 
               <div class="form-outline mb-4">
                 <label class="form-label" for="categoria">Categorías</label>
-                <select class="form-select" id="categoria" name="categoria" required>
+                <select class="form-select" id="categoria" name="categoria" >
                   <option selected disabled value=""><%= data.categoria %></option>
                   <% for(item of cat.reverse()){ %>
                     <% if (item.categorias !== data.categoria) { %>
                       <option value="<%= item.categorias %>"><%= item.categorias %></option>
                     <% } %>
                   <% } %>
-                  
-                </select>
-                <div class="valid-feedback">¡Datos válidos!</div>
+                  <div class="valid-feedback">¡Datos válidos!</div>
                 <div class="invalid-feedback">Selecciona una categoría válida</div>
+                </select>
               </div>
+
+              <div class="form-outline mb-4">
+                <label class="form-label" for="color">Color</label>
+                <select class="form-select" id="color" name="color" >
+                  <option selected disabled value=""><%= data.color %></option>
+                  <% for(item of color.reverse()){ %>
+                    <% if (item.colores !== data.color) { %>
+                      <option value="<%= item.colores %>"><%=item.colores%></option>
+                    <% } %>
+                  <% } %>
+                  <div class="valid-feedback">¡Datos válidos!</div>
+                <div class="invalid-feedback">Selecciona una categoría válida</div>
+                </select>
+              </div>
+
               <div class="btn-container d-flex flex-column w-50 justify-center m-auto">
                   <button type="submit" class="btn btn-primary mb-4">Guardar</button>
                   <button type="reset" class="btn btn-primary mb-4">Restablecer</button>
