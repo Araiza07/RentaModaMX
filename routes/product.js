@@ -138,7 +138,9 @@ router.post("/products/new",isLoggedIn,isAdmin,upload.single("image"),async (req
 router.get("/products/:id", currentUrl, async (req, res) => {
   try {
     const { id } = req.params;
+    
     const data = await Product.findById(id).populate("reviews");
+
     res.render("products/item", { data });
   } catch (e) {
     console.log(e);
@@ -148,8 +150,11 @@ router.get("/products/:id", currentUrl, async (req, res) => {
 router.get("/products/:id/edit", isLoggedIn, isAdmin, async (req, res) => {
   try {
     const { id } = req.params;
+    const cat = await Categorias.find({});
+    const talla = await Tallas.find({id});
+    const color = await Colores.find({id});
     const data = await Product.findById(id);
-    res.render("products/edit", { data });
+    res.render("products/edit", { data, cat, talla,color  });
   } catch (e) {
     console.log(e);
     res.status(404).render("error/error", { status: "404" });

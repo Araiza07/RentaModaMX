@@ -46,12 +46,11 @@
         <div class="col-6">
           <div class="card" style="width: 18rem; margin-top: 4rem;">
             <div class="card-body">
-              <h5 class="card-title">Nombre del Producto: <br> <%=data.name%></h5> <br>
+              <h5 class="card-title">Nombre de la prenda: <br> <%=data.name%></h5> <br>
+           
               <h6 class="card-subtitle mb-2 text-body-secondary">Categoria: <%=data.categoria%></h6>
-              <h6 class="card-subtitle mb-2 text-body-secondary">Talla: <%=data.Talla%></h6>
-              <h6 class="card-subtitle mb-2 text-body-secondary">Color: <%=data.color%></h6>
               <p class="card-text">Precio:  &#36;<%=data.price%> <br>
-                                   Disponibilidad: <% if(data.activo == true){%> Disponible <% }else{%> No disponible <%}%></p>
+                                 
             </div>
           </div>
         </div>
@@ -95,7 +94,7 @@
 
 </section> 
 <section class="review-details col-md-5 my-3">
-  <h2>Opiniones sobre el producto</h2>
+  <h2>Comentario sobre la prenda</h2>
   <form action="/products/<%=data._id%>/reviews" class="rating-system" method="POST">
     <div class="rating-num mb-2">
       <label class="form-label" for="customRange2">Danos tu calificación</label>

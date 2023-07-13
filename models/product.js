@@ -37,7 +37,7 @@ const productSchema=new mongoose.Schema({
          type: String,
          require: true
      },
-    
+
     //Este apartado es para seleccionar una categoria
     categoria:{
         type: String,
