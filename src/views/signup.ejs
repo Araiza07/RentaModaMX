@@ -1,0 +1,27 @@
+<%- layout('layouts/main') %>
+
+<% if (signupMessage) { %>
+  <div><%= signupMessage %></div>
+<% } %>
+
+<link rel="stylesheet" href="/stylesheets/login.css">
+
+
+  <div class="login-wrap">
+    <div class="login-html">
+      <div style="display: flex; justify-content: center; align-items: center;">
+        <h1 style="color: white;">Renta Moda MX</h1>
+      </div>
+      <input id="tab-1 type="radio" name="tab-1" class="sign-in" checked>
+      <a href="/signin"  class="tab">Iniciar sesión</a>
+      <input id="tab-1" type="radio" name="tab-1" class="sign-up">
+      <label style="color: white" for="tab" class="tab">Registrarse</label>
+      
+    <form action="/signup" method="POST">
+
+      <input type="email" name="email" placeholder="Email">
+      <input type="password" name="password" placeholder="Password">
+      <button type="submit">
+        SignUp
+      </button>
+      </form>
