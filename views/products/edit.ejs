@@ -72,6 +72,20 @@
                 </select>
               </div>
 
+              <div class="form-outline mb-4">
+                <label class="form-label" for="talla">Tallas</label>
+                <select class="form-select" id="talla" name="talla" >
+                  <option selected disabled value=""><%= data.talla %></option>
+                  <% for(item of talla.reverse()){ %>
+                    <% if (item.tallas !== data.talla) { %>
+                      <option value="<%= item.tallas %>"><%=item.tallas%></option>
+                    <% } %>
+                  <% } %>
+                  <div class="valid-feedback">¡Datos válidos!</div>
+                <div class="invalid-feedback">Selecciona una categoría válida</div>
+                </select>
+              </div>
+
               <div class="btn-container d-flex flex-column w-50 justify-center m-auto">
                   <button type="submit" class="btn btn-primary mb-4">Guardar</button>
                   <button type="reset" class="btn btn-primary mb-4">Restablecer</button>
