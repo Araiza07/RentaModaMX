@@ -148,8 +148,11 @@ router.get("/products/:id", currentUrl, async (req, res) => {
 router.get("/products/:id/edit", isLoggedIn, isAdmin, async (req, res) => {
   try {
     const { id } = req.params;
+    const cat = await Categorias.find({});
+    const talla = await Tallas.find({});
+    const color = await Colores.find({});
     const data = await Product.findById(id);
-    res.render("products/edit", { data });
+    res.render("products/edit", { data, cat, talla,color });
   } catch (e) {
     console.log(e);
     res.status(404).render("error/error", { status: "404" });
