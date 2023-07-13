@@ -71,14 +71,12 @@
                             let totalPrice=finalPrice-discount;
                             %>
                             <li class="py-2 d-flex justify-content-between"><h6>Precio<span>(<%=data.length%> <%=itemDisplay%>)</span></h6> <h6>&#36; <%=finalPrice%></h6></li>
-                            <li class="py-2 d-flex justify-content-between"><h6>Descuento</h6> <h6 class="text-success">- &#36; <%=discount%></h6></li>
                             <li class="py-2 d-flex justify-content-between"><h6>Envio</h6> <h6 class='text-success'>Gratis</h6></li>
                             <hr>
-                            <li class="d-flex justify-content-between"><h5>Precio final</h5> <h6>&#36; <span id="finalPrice"><%=totalPrice%></span></h6></li>
+                            <li class="d-flex justify-content-between"><h5>Precio final</h5> <h6>&#36; <span id="finalPrice"><%=finalPrice%></span></h6></li>
                         </ul>
                     </div>                
                 </div>
-                <div class="card-footer text-success text-center">Has ahorrado un 20 % de descuento en este pedido</div>
             </div>
         </div>
         <div class="finalBillButton d-grid gap-2 py-3"> 
@@ -88,7 +86,7 @@
                         <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Pagar
                         </button>
-                        <a type="button" class="btn btn-warning btn-lg" href="/bookAll">
+                        <a type="button" class="btn btn-warning btn-lg" href="/productAll">
                             Seguir comprando
                         </a>
                         
@@ -104,87 +102,270 @@
                                         
                                         <form action="/pedido" method="post" class="needs-validation" novalidate>
                                             <div class="form-outline mb-4">
-                                              <input type="number" id="tarjeta" class="form-control" name="tarjeta" min="1111111111111111" max="9999999999999999" required/>
-                                              <label class="form-label" for="tarjeta">Num. Tarjeta</label>
-                                              <div class="valid-feedback">¡Los datos son correctos!</div>
-                                              <div class="invalid-feedback">*Campo es requerido</div>
+
+                                                <input type="text" id="tarjeta" class="form-control" name="tarjeta" maxlength="16" required/>
+                                                <label class="form-label" for="tarjeta">Num. Tarjeta</label>
+                                                <div class="valid-feedback">¡Los datos son correctos!</div>
+                                                <div class="invalid-feedback">*Campo es requerido</div>
+
+                                                <script>
+                                                document.getElementById("tarjeta").addEventListener("input", function() {
+                                                var input = this.value.replace(/\D/g, '');
+                                                if (input.length !== 16 || this.value !== input) {
+                                                    this.setCustomValidity("*Campo es requerido");
+                                                } else {
+                                                    this.setCustomValidity("");
+                                                }
+                                                });
+
+                                                document.getElementById("tarjeta").addEventListener("keypress", function(event) {
+                                                var charCode = event.charCode;
+                                                if (charCode !== 0 && !/\d/.test(String.fromCharCode(charCode))) {
+                                                    event.preventDefault();
+                                                }
+                                                });
+                                                </script>
+
+                                                
                                             </div> 
                                             <div class="form-outline mb-4">
-                                              <input type="number" id="cve" class="form-control" name="cve" min="111" max="999" required/>
-                                              <label class="form-label" for="cve">CVE</label>
-                                              <div class="valid-feedback">¡Los datos son correctos!</div>
-                                              <div class="invalid-feedback">*Campo es requerido</div>
+                                                <input type="text" id="cve" class="form-control" name="cve" pattern="\d{3}" maxlength="3" required/>
+                                                <label class="form-label" for="cve">CVE</label>
+                                                <div class="valid-feedback">¡Los datos son correctos!</div>
+                                                <div class="invalid-feedback">*Campo es requerido</div>
+                                                
+                                                <script>
+                                                document.getElementById("cve").addEventListener("input", function() {
+                                                  var input = this.value.replace(/\D/g, '');
+                                                  if (input.length !== 3 || this.value !== input) {
+                                                    this.setCustomValidity("*Campo es requerido");
+                                                  } else {
+                                                    this.setCustomValidity("");
+                                                  }
+                                                });
+                                                
+                                                document.getElementById("cve").addEventListener("keypress", function(event) {
+                                                  var charCode = event.charCode;
+                                                  if (charCode !== 0 && !/\d/.test(String.fromCharCode(charCode))) {
+                                                    event.preventDefault();
+                                                  }
+                                                });
+                                                </script>
+                                                
                                             </div> 
                                             <div class="form-outline mb-4">
-                                              <input type="text" id="nombreFac" class="form-control" name="nombreFac" required/>
-                                              <label class="form-label" for="nombreFac">Nombre del titular</label>
-                                              <div class="valid-feedback">¡Los datos son correctos!</div>
-                                              <div class="invalid-feedback">*Campo es requerido</div>
+                                                <input type="text" id="nombreFac" class="form-control" name="nombreFac" required/>
+                                                <label class="form-label" for="nombreFac">Nombre del titular</label>
+                                                <div class="valid-feedback">¡Los datos son correctos!</div>
+                                                <div class="invalid-feedback">*Campo es requerido</div>
+                                                
+                                                <script>
+                                                document.getElementById("nombreFac").addEventListener("input", function() {
+                                                  var input = this.value;
+                                                  var regex = /^[a-zA-Z\s]+$/;
+                                                  if (!regex.test(input)) {
+                                                    this.setCustomValidity("*Campo es requerido");
+                                                  } else {
+                                                    this.setCustomValidity("");
+                                                  }
+                                                });
+                                                
+                                                document.getElementById("nombreFac").addEventListener("keypress", function(event) {
+                                                  var charCode = event.charCode;
+                                                  if (charCode !== 0 && !/^[a-zA-Z\s]+$/.test(String.fromCharCode(charCode))) {
+                                                    event.preventDefault();
+                                                  }
+                                                });
+                                                </script>
+                                                
                                             </div>
 
                                             <p>DETALLES DE ENVIO</p>
 
                                             <div class="form-outline mb-4">
-                                                <!-- <select class="form-select" aria-label="Default select example" name="estado" required id=" validationCustom04 estado">
-                                                    <option selected disabled value="">Selecciona una estado...</option>
-                                                      <option value="Guanajuato">Guanajuato</option>
-                                                      <option value="Monterrey">Monterrey</option>
-                                                      <option value="Guadalajara">Guadalajara</option>
-                                                      <option value="CDMX">CDMX</option>
-                                                      <option value="Queretaro">Queretaro</option>
-                                                      <option value="Puebla">Puebla</option>
-                                                      <option value="San Luis Potosi">San Luis Potosi</option>
-                                                      <option value="Baja California Norte">Baja California Norte</option>
-                                                      <option value="Baja California Sur">Baja California Sur</option>
-                                                      <option value="Michoacan">Michoacan</option>
-                                                      <option value="Cancun">Cancun</option>
-                                                      <option value="Guerrero">Guerrero</option>
-                                                  </select> -->
                                                 <input type="text" id="estado" class="form-control" name="estado" required/>
                                                 <label class="form-label" for="estado">Estado</label>
                                                 <div class="valid-feedback">¡Los datos son correctos!</div>
                                                 <div class="invalid-feedback">*Campo es requerido</div>
+
+                                                <script>
+                                                document.getElementById("estado").addEventListener("input", function() {
+                                                var input = this.value;
+                                                var regex = /^[a-zA-Z\s]+$/;
+                                                if (!regex.test(input)) {
+                                                    this.setCustomValidity("*Campo es requerido");
+                                                } else {
+                                                    this.setCustomValidity("");
+                                                }
+                                                });
+
+                                                document.getElementById("estado").addEventListener("keypress", function(event) {
+                                                var charCode = event.charCode;
+                                                if (charCode !== 0 && !/^[a-zA-Z\s]+$/.test(String.fromCharCode(charCode))) {
+                                                    event.preventDefault();
+                                                }
+                                                });
+                                                </script>
+
                                             </div>
 
                                             <div class="form-outline mb-4">
-                                              <input type="text" id="ciudad" class="form-control" name="ciudad" required/>
-                                              <label class="form-label" for="ciudad">Ciudad</label>
-                                              <div class="valid-feedback">¡Los datos son correctos!</div>
-                                              <div class="invalid-feedback">*Campo es requerido</div>
+                                                <input type="text" id="ciudad" class="form-control" name="ciudad" required/>
+                                                <label class="form-label" for="ciudad">Ciudad</label>
+                                                <div class="valid-feedback">¡Los datos son correctos!</div>
+                                                <div class="invalid-feedback">*Campo es requerido</div>
+                                                
+                                                <script>
+                                                document.getElementById("ciudad").addEventListener("input", function() {
+                                                  var input = this.value;
+                                                  var regex = /^[a-zA-Z\s]+$/;
+                                                  if (!regex.test(input)) {
+                                                    this.setCustomValidity("*Campo es requerido");
+                                                  } else {
+                                                    this.setCustomValidity("");
+                                                  }
+                                                });
+                                                
+                                                document.getElementById("ciudad").addEventListener("keypress", function(event) {
+                                                  var charCode = event.charCode;
+                                                  if (charCode !== 0 && !/^[a-zA-Z\s]+$/.test(String.fromCharCode(charCode))) {
+                                                    event.preventDefault();
+                                                  }
+                                                });
+                                                </script>
+                                                
                                             </div>
                                             <div class="form-outline mb-4">
-                                              <input type="number" id="cp" class="form-control" name="cp" min="11111" max="99999" required/>
-                                              <label class="form-label" for="cp">Codigo Postal</label>
-                                              <div class="valid-feedback">¡Los datos son correctos!</div>
-                                              <div class="invalid-feedback">*Campo es requerido</div>
+                                                <input type="text" id="cp" class="form-control" name="cp" maxlength="5" required/>
+                                                <label class="form-label" for="cp">Código Postal</label>
+                                                <div class="valid-feedback">¡Los datos son correctos!</div>
+                                                <div class="invalid-feedback">*Campo es requerido</div>
+                                                
+                                                <script>
+                                                document.getElementById("cp").addEventListener("input", function() {
+                                                  var input = this.value.replace(/\D/g, '');
+                                                  if (input.length !== 5 || this.value !== input) {
+                                                    this.setCustomValidity("*Campo es requerido");
+                                                  } else {
+                                                    this.setCustomValidity("");
+                                                  }
+                                                });
+                                                
+                                                document.getElementById("cp").addEventListener("keypress", function(event) {
+                                                  var charCode = event.charCode;
+                                                  if (charCode !== 0 && !/\d/.test(String.fromCharCode(charCode))) {
+                                                    event.preventDefault();
+                                                  }
+                                                });
+                                                </script>
+                                                
                                             </div>
                                             <div class="form-outline mb-4">
-                                              <input type="text" id="colonia" class="form-control" name="colonia" required/>
-                                              <label class="form-label" for="colonia">Colonia</label>
-                                              <div class="valid-feedback">¡Los datos son correctos!</div>
-                                              <div class="invalid-feedback">*Campo es requerido</div>
+                                                <input type="text" id="colonia" class="form-control" name="colonia" required/>
+                                                <label class="form-label" for="colonia">Colonia</label>
+                                                <div class="valid-feedback">¡Los datos son correctos!</div>
+                                                <div class="invalid-feedback">*Campo es requerido</div>
+                                                
+                                                <script>
+                                                document.getElementById("colonia").addEventListener("input", function() {
+                                                  var input = this.value;
+                                                  var regex = /^[a-zA-Z\s]+$/;
+                                                  if (!regex.test(input)) {
+                                                    this.setCustomValidity("*Campo es requerido");
+                                                  } else {
+                                                    this.setCustomValidity("");
+                                                  }
+                                                });
+                                                
+                                                document.getElementById("colonia").addEventListener("keypress", function(event) {
+                                                  var charCode = event.charCode;
+                                                  if (charCode !== 0 && !/^[a-zA-Z\s]+$/.test(String.fromCharCode(charCode))) {
+                                                    event.preventDefault();
+                                                  }
+                                                });
+                                                </script>
+                                                
                                             </div>
                                             <div class="form-outline mb-4">
-                                              <input type="text" id="calle" class="form-control" name="calle" required/>
-                                              <label class="form-label" for="calle">Calle</label>
-                                              <div class="valid-feedback">¡Los datos son correctos!</div>
-                                              <div class="invalid-feedback">*Campo es requerido</div>
+                                                <input type="text" id="calle" class="form-control" name="calle" required/>
+                                                <label class="form-label" for="calle">Calle</label>
+                                                <div class="valid-feedback">¡Los datos son correctos!</div>
+                                                <div class="invalid-feedback">*Campo es requerido</div>
+                                                
+                                                <script>
+                                                document.getElementById("calle").addEventListener("input", function() {
+                                                  var input = this.value;
+                                                  var regex = /^[a-zA-Z\s]+$/;
+                                                  if (!regex.test(input)) {
+                                                    this.setCustomValidity("*Campo es requerido");
+                                                  } else {
+                                                    this.setCustomValidity("");
+                                                  }
+                                                });
+                                                
+                                                document.getElementById("calle").addEventListener("keypress", function(event) {
+                                                  var charCode = event.charCode;
+                                                  if (charCode !== 0 && !/^[a-zA-Z\s]+$/.test(String.fromCharCode(charCode))) {
+                                                    event.preventDefault();
+                                                  }
+                                                });
+                                                </script>
+                                                
                                             </div>
                                             <p>REFERENCIAS DEL DOMICILIO</p>
                                             <div class="form-outline mb-4">
-                                              <input type="text" id="ref1" class="form-control" name="ref1" required/>
-                                              <label class="form-label" for="ref1">Referencia 1</label>
-                                              <div class="valid-feedback">¡Los datos son correctos!</div>
-                                              <div class="invalid-feedback">*Campo es requerido</div>
+                                                <input type="text" id="ref1" class="form-control" name="ref1" required/>
+                                                <label class="form-label" for="ref1">Referencia 1</label>
+                                                <div class="valid-feedback">¡Los datos son correctos!</div>
+                                                <div class="invalid-feedback">*Campo es requerido</div>
+                                                
+                                                <script>
+                                                document.getElementById("ref1").addEventListener("input", function() {
+                                                  var input = this.value;
+                                                  var regex = /^[a-zA-Z\s]+$/;
+                                                  if (!regex.test(input)) {
+                                                    this.setCustomValidity("*Campo es requerido");
+                                                  } else {
+                                                    this.setCustomValidity("");
+                                                  }
+                                                });
+                                                
+                                                document.getElementById("ref1").addEventListener("keypress", function(event) {
+                                                  var charCode = event.charCode;
+                                                  if (charCode !== 0 && !/^[a-zA-Z\s]+$/.test(String.fromCharCode(charCode))) {
+                                                    event.preventDefault();
+                                                  }
+                                                });
+                                                </script>
+                                                
                                             </div>
                                             <div class="form-outline mb-4">
-                                              <input type="tel" id="telefono" value="+52" class="form-control" name="telefono" minlength="9" maxlength="13" required/>
-                                              <label class="form-label" for="telefono">Telefono</label>
-                                              <div class="valid-feedback">¡Los datos son correctos!</div>
-                                              <div class="invalid-feedback">*Campo es requerido</div>
+                                                <input type="tel" id="telefono"  class="form-control" name="telefono" maxlength="10" required/>
+                                                <label class="form-label" for="telefono">Teléfono</label>
+                                                <div class="valid-feedback">¡Los datos son correctos!</div>
+                                                <div class="invalid-feedback">*Campo es requerido</div>
+
+                                                <script>
+                                                document.getElementById("telefono").addEventListener("input", function() {
+                                                var input = this.value.replace(/\D/g, ''); // Remover caracteres no numéricos
+                                                if (input.length !== 10) {
+                                                    this.setCustomValidity("*Campo es requerido");
+                                                } else {
+                                                    this.setCustomValidity("");
+                                                }
+                                                });
+
+                                                document.getElementById("telefono").addEventListener("keypress", function(event) {
+                                                var charCode = event.charCode;
+                                                if (charCode !== 0 && (charCode < 48 || charCode > 57)) { // Permitir solo dígitos numéricos
+                                                    event.preventDefault();
+                                                }
+                                                });
+                                                </script>
+                                                
                                             </div>
                                             <div class="form-outline mb-4">
-                                              <input type="number" id="finalPrice" value="<%=totalPrice%>" class="form-control" readonly name="finalPrice"/>
+                                              <input type="number" id="finalPrice" value="<%=finalPrice%>" class="form-control" readonly name="finalPrice"/>
                                               <label class="form-label" for="finalPrice">Precio Final</label>
                                               <div class="valid-feedback">¡Los datos son correctos!</div>
                                               <div class="invalid-feedback">*Campo es requerido</div>
@@ -203,72 +384,6 @@
                                 </div>
                             </div>
                         </div>
-
-            <!-- <button type="button" class="btn btn-success btn-lg" id="rzp-checkout">Realizar orden</button>
-            <div
-            class="modal fade"
-            id="paymentModal"
-            tabindex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-            >
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" >Your Order Id : <span id="paymentModalLabel">odal title</span></h5>
-                    <button
-                    type="button"
-                    class="btn-close"
-                    data-mdb-dismiss="modal"
-                    aria-label="Close"
-                    ></button>
-                </div>
-                <div class="modal-body">
-                    <div class="content p-3">
-                        <ul>
-                            <li>This is a test payment gateway, i.e ,it will not deduct any money.</li>
-                            <li>Click on the Paynow button to open the Razor Pay Payment Gateway.</li>
-                       <li> After the payment gateway opens, you need to enter your phone number or change any details.</li>
-                       <li>To initiate a payment a click on the card section and use any one of the following dummy cards .</li>
-                       <br>
-                       <li>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Card Network</th>
-                                    <th>Card Number</th>
-                                </tr>
-                                <tbody>
-                                    <tr>
-                                       <td>Master Card</td> 
-                                       <td>5104 0600 0000 0008</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Visa</td>                                      
-                                        <td>4111 1111 1111 1111</td>
-                                    </tr>
-                                </tbody>
-                            </thead>
-                        </table>
-                        </li>
-                        <br>
-                        <li>Give any proper CVV and Expiry Date and click on pay.</li>
-                        <li>A new dialog box opens. If your want the Payment to be successfull,Click on Success otherwise click on Payment Fail.</li>
-                        </ul>
-                        
-                        
-                        
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
-                    Close
-                    </button>
-                    <button type="button" class="btn btn-primary" id="rzp-payment">Pay Now</button>
-                </div>
-                </div>
-            </div>
-            </div> -->
         </div>
         </div>
     </div>
@@ -297,9 +412,7 @@
                     "order_id": order.id,
                     "image": "https://pngimg.com/uploads/shopping_cart/shopping_cart_PNG38.png",
                     "handler": function (response){
-                        // alert(response.razorpay_payment_id);
-                        // alert(response.razorpay_order_id);
-                        // alert(response.razorpay_signature)
+
                         console.log(response);
                         console.log(response)
                         response.order=order;
@@ -363,13 +476,6 @@
         }
         })
         })
-    //     .catch((e)=>{
-    //             document.getElementById('alert-target').innerHTML=`<div class="alert alert-danger" id="fail-alert" role="alert">
-    //     There was a problem with payment! Please Try again!
-    //   </div>`
-    //   const myAlert = document.getElementById('fail-alert');
-    //   const bsAlert = new bootstrap.Alert(myAlert);
-    //   setTimeout(()=>{bsAlert.close()},3000);
-    //     })
+
 </script>
 <%- include("../partials/footer") %>
