@@ -33,7 +33,7 @@ const productSchema=new mongoose.Schema({
         type: String,
         require: true
     },
-     Talla: {
+     talla: {
          type: String,
          require: true
      },
