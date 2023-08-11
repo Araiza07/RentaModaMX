@@ -10,6 +10,7 @@ const path = require("path");
 const fs = require("fs");
 const isLoggedIn=require("../middlewares/isLoggedIn")
 const currentUrl = require("../middlewares/currentUrl");
+const { check, validationResult } = require('express-validator');
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname,"/uploads/users"));
@@ -44,13 +45,33 @@ var transporter = nodemailer.createTransport({
   }
 });
 
+router.post("/register", upload.single("image"), [
+ 
+    check('username')
+    .custom(async (value) => {
+      const existingUser = await User.findOne({ username: value });
+      if (existingUser) {
+        throw new Error('Este nombre de usuario ya está en uso');
+      }
+      
+    }),
 
 
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.log(req.body);
+    const valores = req.body;
+    const validaciones = errors.array();
+   
+return res.render('../views/authentication/register.ejs', { validaciones, valores });
 
-router.post("/register", upload.single("image"), async (req, res) => {
+  }
+  
+
   try {
     const code = Math.floor(100000 + Math.random() * 900000).toString();
-    let oData = req.body
+    let oData = req.body;
 
     const userObj = new User({
       username: req.body.username,
@@ -60,81 +81,76 @@ router.post("/register", upload.single("image"), async (req, res) => {
       codeNuevo: code,
       nombreCompleto: req.body.nombreCompleto
     });
+    const resultUsername = await User.findOne({ username: userObj.username });
+    if (resultUsername) {
+      req.flash("register", "Este nombre de usuario ya está en uso");
+      return res.redirect("/register");
+    }
 
     let file;
     try {
-      file = path.join(__dirname,"/uploads/users/" + req.file.filename);
+      file = path.join(__dirname, "/uploads/users/" + req.file.filename);
       userObj.image = {
-        data:  fs.readFileSync(file),
+        data: fs.readFileSync(file),
         contentType: "image/png",
       };
-      
+
     } catch (e) {
       userObj.image = null;
     }
-
-            // ********   VALIDACION reCAPCHA
-            // const recaptchaToken = oData['g-recaptcha-response'];
-            // let secret = "6LefrZwlAAAAAHcdRiK3lzMKfNBcD5l5Vckulx_i ";
-    
-            // const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${recaptchaToken}`;
-            // const response = await fetch(url, {
-            //   method: 'POST'
-            // });
-            // const data = await response.json();
-    
-            // ************
-    
 
     const mailOptions = {
       from: 'ventamodamx@gmail.com',
       to: userObj.email,
       subject: `Bienvenido a VentaModaMX - @${userObj.username}`,
-      text: "Tienda numero 1 tenerte a la moda",
+      text: "Tienda número 1 tenerte a la moda",
       html: `
-      <h1>Bienvenido a Venta Moda MX - Tu tinda de ropa favorita</h1>
+      <h1>Bienvenido a Venta Moda MX - Tu tienda de ropa favorita</h1>
       <h2>Te damos la bienvenida: ${userObj.nombreCompleto}</h2>
-      <p>Tu codigo de inicio de sesion es: ${userObj.codeNuevo}</p>
-      <p>Este codigo es importante para poder iniciar sesion por primera vez en la aplicacion</p>
+      <p>Tu código de inicio de sesión es: ${userObj.codeNuevo}</p>
+      <p>Este código es importante para poder iniciar sesión por primera vez en la aplicación</p>
       <img src="https://media.istockphoto.com/id/1210584470/es/foto/tienda-de-ropa-para-hombre.jpg?s=612x612&w=0&k=20&c=Zyl9IGQGqUesoI-DzJorl2iiwrP-eKLqOsM6bXoAeG4=" alt="Imagen de Venta Moda MX">`
     };
+    
 
-    await User.find({email: userObj.email}, async function (error, result) {
-      if (result == undefined || result == null || result[0] == null) {
-        if (req.body.password == req.body.pwd2) {  
-          const enviarEmail = transporter.sendMail(mailOptions, function(error, info){
+    const result = await User.findOne({ email: userObj.email });
+    if (result == undefined || result == null || result[0] == null) {
+      if (req.body.password == req.body.pwd2) {
+        const enviarEmail = transporter.sendMail(mailOptions, function (error, info) {
           if (error) {
             console.log(error);
           } else {
             console.log('Email enviado: ' + info.response);
-          }   
-          });
-  
-          User.register(userObj, req.body.password);
-          enviarEmail;
-          req.flash("login", "Usuario registrado correctamente, inicie sesión para continuar");
-          req.flash("login", "Se enviado un email con su codigo de acceso para acceder!");
-          res.redirect("/login");
-
-          }else{
-            req.flash("error","Las contraceñas no coinciden");
-            res.redirect("/register")
-          };
-      }else{
-        if (userObj.email == result[0].email) {
-          req.flash("register","Este correo ya esxiste")
-          res.redirect("/register")    
-        } else {
-
-        }
-      }
+          }
         });
+
+        User.register(userObj, req.body.password);
+        enviarEmail;
+        req.flash("login", "Usuario registrado correctamente, inicie sesión para continuar");
+        req.flash("login", "Se ha enviado un email con su código de acceso para acceder");
+        return res.redirect("/login");
+
+      } else {
+        req.flash("error", "Las contraseñas no coinciden");
+        return res.redirect("/register");
+      }
+    } else {
+      if (userObj.email == result.email) {
+        req.flash("register", "Este correo ya existe");
+        return res.redirect("/register");
+
+      }
+     
+    }
+ 
   } catch (err) {
-    console.log(err)
-    req.flash("register", "El correo o usuario estan duplicado porfavor elija otro");
-    res.redirect("/register");
+    console.log(err);
+    req.flash("register", "El correo o usuario están duplicados, por favor elija otro");
+    return res.redirect("/register");
   }
 });
+
+
 
 router.get('/autocomplete', function(req, res) {
   var rutas = [
@@ -145,6 +161,8 @@ router.get('/autocomplete', function(req, res) {
   ];
   res.send(rutas);
 });
+
+
 router.get("/register", 
 (req, res, next) => {
   try {
@@ -167,6 +185,12 @@ router.get("/register",
     res.status(404).render("error/error", { status: "404" });
   }
 });
+
+
+
+
+
+
 
 router.get(
   "/login",
@@ -323,23 +347,9 @@ router.get("/rPass",
 router.post("/rPass", async (req, res) => {
   try {
     const code = Math.floor(100000 + Math.random() * 900000).toString();
-// ********   VALIDACION reCAPCHA
-// let oData = req.body
-// const recaptchaToken = oData['g-recaptcha-response'];
-// let secret = "6LefrZwlAAAAAHcdRiK3lzMKfNBcD5l5Vckulx_i ";
 
-// const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${recaptchaToken}`;
-// const response = await fetch(url, {
-//   method: 'POST'
-// });
-// const data = await response.json();
-
-// ************
     const correo  = req.body.email;
-    // if (!data.success) {
-    //   req.flash("error", "reCAPTCHA invalido, Acaso no eres un humano!");
-    //   res.redirect("/rPass");
-    // }else{
+
     await User.find({email: correo}, async function (error, result) {
       if (result == undefined || result == null || result[0] == null) {
         req.flash("error", "El correo no esta registrado a LibritoMX")
@@ -392,18 +402,7 @@ router.post("/rPass", async (req, res) => {
 router.post("/rPassUpdate", async (req, res)=>{
   try {
 
-// ********   VALIDACION reCAPCHA
-// let oData = req.body
-// const recaptchaToken = oData['g-recaptcha-response'];
-// let secret = "6LefrZwlAAAAAHcdRiK3lzMKfNBcD5l5Vckulx_i ";
 
-// const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${recaptchaToken}`;
-// const response = await fetch(url, {
-//   method: 'POST'
-// });
-// const data = await response.json();
-
-// ************
 
     const codigo = req.body.codePass;
     const correo = req.body.email;
@@ -469,6 +468,8 @@ router.post("/rPassUpdate", async (req, res)=>{
       res.redirect("/rPass")
   }
 });
+
+
 
 
 module.exports = router;

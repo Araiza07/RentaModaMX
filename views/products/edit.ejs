@@ -22,19 +22,14 @@
                     <div class="invalid-feedback">Nombre no valido!</div>
                   </div>
                   <div class="form-outline mb-4">
-                    <input type="text" id="price" class="form-control" name="price" value="<%=data.price%>" required/>
+                    <input type="number" id="price" class="form-control" name="price" value="<%=data.price%>" required/>
                     <label class="form-label" for="price">Precio</label>
                     <div class="valid-feedback">Buen aspecto!</div>
                     <div class="invalid-feedback">Precio no valido!</div>
                   </div>
-                  <div class="form-outline mb-4">
-                    <input type="text" id="img" class="form-control" name="img" value="<%=data.img%>" />
-                    <label class="form-label" for="img">Link de la Imagen del producto</label>
-                    <div class="valid-feedback">Buen aspecto!</div>
-                    <div class="invalid-feedback">Enlace de imagen no valido</div>
-                  </div>
+                 
                   <div class="form-outline mb-5">
-                    <input type="file" class="form-control" name="image" id="customFile" />
+                    <input type="file" class="form-control" name="image" id="customFile" required/>
                     <div class="valid-feedback">Buen aspecto!</div>
                     <div class="invalid-feedback">Imagen no valida!</div>
                   </div>

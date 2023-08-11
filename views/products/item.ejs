@@ -48,8 +48,9 @@
             <div class="card-body">
               <h5 class="card-title">Nombre del Producto: <br> <%=data.name%></h5> <br>
               <h6 class="card-subtitle mb-2 text-body-secondary">Categoria: <%=data.categoria%></h6>
-              <h6 class="card-subtitle mb-2 text-body-secondary">Talla: <%=data.Talla%></h6>
-              <h6 class="card-subtitle mb-2 text-body-secondary">Color: <%=data.color%></h6>
+              <h6 class="card-subtitle mb-2 text-body-secondary">Talla: <%=data.talla%></h6>
+              <h6 class="card-subtitle mb-2 text-body-secondary">Color: <%= data.color %></h6>
+              
               <p class="card-text">Precio:  &#36;<%=data.price%> <br>
                                    Disponibilidad: <% if(data.activo == true){%> Disponible <% }else{%> No disponible <%}%></p>
             </div>
@@ -117,7 +118,7 @@
       </div>
     </div>
     <div class="review-item form-outline mb-3">
-      <textarea class="form-control" id="textAreaExample" name="comment" rows="4"></textarea>
+      <textarea class="form-control" id="textAreaExample" name="comment" rows="4" required></textarea>
       <label class="form-label" for="textAreaExample">Escribir la reseña de un producto</label>
     </div>
     <div class="submit-button"><button type="submit" class="btn btn-primary mb-4">Guardar</button></div>
