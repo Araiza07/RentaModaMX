@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
+//singelton
 const app = express();
 require("dotenv").config();
 const seed = require("./seed");

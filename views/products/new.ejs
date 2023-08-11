@@ -15,6 +15,7 @@
             <form action="/products/new" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
               <label class="form-label" for="price">Nombre</label>  
               <div class="form-outline mb-5">
+
                     <input type="text" id="name" class="form-control" name="name" required/>
                     <label class="form-label" for="name">Nombre del Producto</label>
                     <div class="valid-feedback">¡Los datos son correctos!</div>
@@ -28,27 +29,36 @@
                     <div class="valid-feedback">¡Los datos son correctos!</div>
                     <div class="invalid-feedback">Tienes que escribir el precio correcto</div>
                   </div>
+
+                  
+                  
                   <!-- Este apartado es para colocar el Color del producto -->
-                  <div class="form-outline mb-3">
-                    <label class="form-label" for="price">Color</label>
-                    <select class="form-select" aria-label="Default select example" name="Color" required id="color">
-                      <option selected disabled value="">Selecciona una Color...</option>
-                    <% color.forEach((item)=>{ %> 
-                      <option value="<%=item.colores%>"><%=item.colores%></option>
-                    <% }) %>
-                  </select>
-                    <div class="valid-feedback">¡Los datos son correctos!</div>
-                    <div class="invalid-feedback">Tienes que seleccionar la categoria correcto</div>
-                  </div> 
-                  <!-- Este apartado es para colocar la Talla del producto -->
-                  <div class="form-outline mb-3">
-                    <label class="form-label" for="price">Tallas</label>
-                    <select class="form-select" aria-label="Default select example" name="Talla" required id=" editorial">
-                      <option selected disabled value="">Selecciona una Talla...</option>
-                    <% talla.forEach((item)=>{ %> 
-                      <option value="<%=item.tallas%>"><%=item.tallas%></option>
-                    <% }) %>
-                  </select>
+                 <!-- Cambiar "name" de los campos de color y talla a minúsculas -->
+<div class="form-outline mb-3">
+  <label class="form-label" for="price">Color</label>
+  <select class="form-select" aria-label="Default select example" name="color" required id="color">
+    <option selected disabled value="">Selecciona una Color...</option>
+    <% color.forEach((item)=>{ %> 
+      <option value="<%=item.colores%>"><%=item.colores%></option>
+    <% }) %>
+  </select>
+  <div class="valid-feedback">¡Los datos son correctos!</div>
+  <div class="invalid-feedback">Tienes que seleccionar el color correcto</div>
+</div>
+
+<!-- Cambiar "name" de los campos de color y talla a minúsculas -->
+<div class="form-outline mb-3">
+  <label class="form-label" for="price">Tallas</label>
+  <select class="form-select" aria-label="Default select example" name="talla" required id="editorial">
+    <option selected disabled value="">Selecciona una Talla...</option>
+    <% talla.forEach((item)=>{ %> 
+      <option value="<%=item.tallas%>"><%=item.tallas%></option>
+    <% }) %>
+  </select>
+  <div class="valid-feedback">¡Los datos son correctos!</div>
+  <div class="invalid-feedback">Tienes que seleccionar la talla correcta</div>
+</div>
+<div class="form-outline mb-4">
                     <div class="valid-feedback">¡Los datos son correctos!</div>
                     <div class="invalid-feedback">Tienes que seleccionar la categoria correcto</div>
                   </div>
@@ -67,20 +77,14 @@
                   <!-- Este apartado es para agregar una imagen desde tu equipo -->
                   <h6 class="my-3 text-center"></h6>
                   
-                  <label class="form-label" for="image">Selecciona una imagen de tu equipo local </label>
+                  <label  class="form-label" for="image" required>Selecciona una imagen de tu equipo local </label>
                   <div class="form-outline mb-4">
-                    <input type="file" class="" name="image" id="customFile" />
+                    <input type="file" class="" name="image" id="customFile" required/>
                     <div class="valid-feedback">¡Los datos son correctos!</div>
                     <div class="invalid-feedback">¡No es un archivo de imagen válido!</div>
                   </div>
-                  <!-- Esto es para Colocar el enlace de una imagen  -->
-                  <label class="form-label" for="img">Selecciona un enlace de la imagen</label>
-                  <div class="form-outline mb-4">
-                    <input type="text" id="img" class="" name="img"/>
-                    <div class="valid-feedback">¡Los datos son correctos!</div>
-                    <div class="invalid-feedback">¡No es un archivo de imagen válido!</div>
-                  </div>
-                  <!-- Este apartado es para la descripcion del libro -->
+                
+                  
                   <label class="form-label" for="desc">Descripcion </label>
                   <div class="form-outline mb-5">
                     <textarea class="" id="desc" rows="8" cols="80"name="desc" required></textarea>

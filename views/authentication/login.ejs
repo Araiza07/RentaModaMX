@@ -13,11 +13,14 @@
   <div class="container-fluid my-2">
       <%if(register!=""){%>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      
         <%= register %> 
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     <%}%>
   </div> 
+
+  
     <div class="container">
         <h2 class="text-center mt-5">Inicia sesión con su cuenta</h2>
        
@@ -25,16 +28,18 @@
             <form action="/login" method="post" class="login-form needs-validation res-width" novalidate>
                 <!-- 2 column grid layout with text inputs for the first and last names --> 
                 <div class="form-outline mb-4">
-                      <input type="text" id="username" class="form-control" name="username" />
+                      <input type="text" id="username" class="form-control" name="username" required  />
                       <label class="form-label" for="username">Nombre usuario</label>
+                      <div class="valid-feedback">*Campo completado</div>
                       <div class="invalid-feedback">*Campo requerido</div>
                     </div>
                   
               
                 <!-- Password input -->
                 <div class="form-outline mb-4">
-                  <input type="password" id="password" class="form-control" name="password"/>
+                  <input type="password" id="password" class="form-control" name="password"  required />
                   <label class="form-label" for="password">Contraseña</label>
+                  <div class="valid-feedback">*Campo completado</div>
                   <div class="invalid-feedback">*Campo requerido</div>
                 </div>
               
@@ -42,7 +47,9 @@
                 
               
                 <!-- Submit button -->
-                <button type="submit" class="btn btn-primary btn-block mb-4">Iniciar sesion</button>
+                <button type="submit" class="btn btn-primary btn-block mb-4">Iniciar sesión</button>
+
+                <button type="button" class="btn btn-primary" onclick="showPassword1()">Mostrar contraseña</button>
               
                 <!-- Register buttons -->
                 <div class="text-center">
@@ -55,5 +62,20 @@
          </div>
     </div>
      
+    <script>
+      function showPassword1() {
+        var x = document.getElementById("password");
+       
+        if (x.type === "password") {
+          x.type = "text";
+        
+        } else {
+          x.type = "password";
+        
+        }
+      }
+      </script>
+
+    
  </main>
 <%- include('../partials/footer') %> 
