@@ -60,7 +60,7 @@
                         
                         <div class="container">
                         <div class="card-body">
-                          <h6 class="card-subtitle mb-2 text-muted">Sinopsis:</h6>
+                          <h6 class="card-subtitle mb-2 text-muted">Descripcion:</h6>
                           <p class="card-text" style="text-align: justify;">
                             <%=data.desc%>
                           </p>
@@ -95,87 +95,6 @@
                       </div> 
 
 </section> 
-<section class="review-details col-md-5 my-3">
-  <h2>Opiniones sobre el producto</h2>
-  <form action="/products/<%=data._id%>/reviews" class="rating-system" method="POST">
-    <div class="rating-num mb-2">
-      <label class="form-label" for="customRange2">Danos tu calificación</label>
-      <div class="range">
-        <fieldset class="starability-grow">
-          
-          <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
-          <input type="radio" id="first-rate1" name="rating" value="1" />
-          <label for="first-rate1" title="Terrible">1 Estrella</label>
-          <input type="radio" id="first-rate2" name="rating" value="2" />
-          <label for="first-rate2" title="Not good">2 Estrellas</label>
-          <input type="radio" id="first-rate3" name="rating" value="3" />
-          <label for="first-rate3" title="Average">3 Estrellas</label>
-          <input type="radio" id="first-rate4" name="rating" value="4" />
-          <label for="first-rate4" title="Very good">4 Estrellas</label>
-          <input type="radio" id="first-rate5" name="rating" value="5" />
-          <label for="first-rate5" title="Amazing">5 Estrellas</label>
-        </fieldset>
-      </div>
-    </div>
-    <div class="review-item form-outline mb-3">
-      <textarea class="form-control" id="textAreaExample" name="comment" rows="4" required></textarea>
-      <label class="form-label" for="textAreaExample">Escribir la reseña de un producto</label>
-    </div>
-    <div class="submit-button"><button type="submit" class="btn btn-primary mb-4">Guardar</button></div>
-  </form>
- 
-  <div class="all-comments">
-    <h2> Opiniones </h2>
-    <hr>
-    <div class="all-reviews">
-      <% if(data.reviews.length>0){
-        let avgSum=0;
-        data.reviews.forEach((item)=>{
-          avgSum+=item.rating
-        })
-        avgSum=Math.round(avgSum/data.reviews.length);
-        if(avgSum>0){%>
-          <div class="avgRating my-3">
-            <h4>Calificación promedio del cliente</h4>
-            <p class="starability-result mt-2" data-rating="<%=avgSum%>"></p>
-            <h5><i>Clasificación : </i><%=avgSum%> out of 5</h5>
-          </div>
-        <%}
-        for(index of data.reviews.reverse()){ %> 
-        <div class="card mb-3">
-          <div class="card-body">
-            <h5 class="card-title">Clasificación : <p class="starability-result mt-2" data-rating="<%=index.rating%>"></p></h5>
-            <i class="card-subtitle mb-2 text-muted">Dada por <strong>"<%=index.user%>" </strong>(usuario verificado)</i>
-            <p class="card-text">
-              <%= index.comment %> 
-            </p>
-            <% if(loginUser){
-              if(loginUser.username==index.user){%>
-            <div class="cardbtn pb-2 d-flex">
-              
-              <a type="button" href="/products/<%=data._id%>/reviews/<%=index._id%>" class="btn btn-primary btn-sm me-2">Editar</a>
-              <form action="/products/<%=data._id%>/reviews/<%=index._id%>?_method=DELETE" method="post">
-              <button type="submit" class="btn btn-danger btn-sm">Borrar</button>
-                </form>
-            </div>
-          <%}
-            }
-            if(index.date){%>
-            <div class="card-footer text-muted"><i>Creado en <%=String(index.date).slice(0,10)%></i></div>
-            <%}%>
-          </div>
-        </div>
-      <%}
-      }
-        
-      else{%>
-        <h3 class="no-data">¡Aún no hay reseñas!</h3>
-        
-        <% }%>
-        
-    </div>
-  </div>
-</section>
 </div>  
 
 </div>    

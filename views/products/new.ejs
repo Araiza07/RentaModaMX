@@ -9,10 +9,12 @@
 </div> 
 <main class="body-container">
     <div class="home container">
+
+    
         <h1 class="text-center my-2">Agregar productos al inventario.</h1>
         <hr>
         <div class="forms m-auto res-width">
-            <form action="/products/new" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
+            <form id="form" action="/products/new" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
               <label class="form-label" for="price">Nombre</label>  
               <div class="form-outline mb-5">
 
@@ -21,6 +23,24 @@
                     <div class="valid-feedback">¡Los datos son correctos!</div>
                     <div class="invalid-feedback">Tienes que escribir el nombre correcto</div>
                   </div>
+
+<script>
+  document.getElementById("name").addEventListener("input", function() {
+    var input = this.value.replace(/[^a-zA-Z0-9\s]/g, ''); // Remover caracteres no alfabéticos ni números ni espacios
+    input = input.slice(0, 200);
+    
+    if (input.trim().length === 0) {
+      this.setCustomValidity("*Campo requerido");
+    } else {
+      this.setCustomValidity("");
+    }
+    
+    this.value = input;
+  });
+  
+</script>
+
+                  
                   <!-- Este apartado es para colocar el precio del producto -->
                   <label class="form-label" for="price">Precio en moneda Mexicana</label> 
                   <div class="form-outline mb-3">
@@ -79,7 +99,7 @@
                   
                   <label  class="form-label" for="image" required>Selecciona una imagen de tu equipo local </label>
                   <div class="form-outline mb-4">
-                    <input type="file" class="" name="image" id="customFile" required/>
+                    <input type="file" class="" name="image" id="customFile"  onchange="return validarExt()" required/>
                     <div class="valid-feedback">¡Los datos son correctos!</div>
                     <div class="invalid-feedback">¡No es un archivo de imagen válido!</div>
                   </div>
@@ -91,12 +111,47 @@
                     <div class="valid-feedback">¡Los datos son correctos!</div>
                     <div class="invalid-feedback">Tienes que escribir la sipnosis</div>
                   </div>
+                  <script>
+
+                    document.getElementById("desc").addEventListener("input", function() {
+                      var input = this.value.slice(0); 
+                      
+                      if (input.trim().length === 0) {
+                        this.setCustomValidity("*Campo requerido");
+                      } else {
+                        this.setCustomValidity("");
+                      }
+                      
+                      this.value = input;
+                    });
+                    
+                  </script>
                 
                   <div class="btn-container d-flex flex-column w-50 justify-center m-auto">
                     <button type="submit" class="btn btn-primary mb-4">Agregar Producto</button>
                     <button type="reset" class="btn btn-primary mb-4">Limpiar datos</button>
                   </div>
             </form>
+
+            <script>
+              function validarExt() {
+                var archivoInput = document.getElementById('customFile');
+                var archivoRuta = archivoInput.value;
+                var extPermitidas = /\.(jpg|jpeg|png|gif)$/i;
+              
+                if (!extPermitidas.exec(archivoRuta)) {
+                  alert('Asegúrate de haber seleccionado una imagen válida (jpg, jpeg, png o gif)');
+                  archivoInput.value = '';
+                  return false;
+                } 
+                
+                
+              }
+              
+            </script>
+          </body>
+          </html>
+      
         </div>
     </div>
 </main>

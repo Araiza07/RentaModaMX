@@ -352,7 +352,7 @@ router.post("/rPass", async (req, res) => {
 
     await User.find({email: correo}, async function (error, result) {
       if (result == undefined || result == null || result[0] == null) {
-        req.flash("error", "El correo no esta registrado a LibritoMX")
+        req.flash("error", "El correo no esta registrado a ventamda")
         res.redirect('/login');
       }else{
       if (correo == result[0].email) {
@@ -364,7 +364,7 @@ router.post("/rPass", async (req, res) => {
             <h1>Recuperar contraceña</h1>
             <p>Tu codigo de para recuperar contraceña es: ${code}</p>
             <p>Este codigo es importante para poder recuperar tu contraceña</p>
-            <img src="https://familiasactivas.com/wp-content/uploads/2018/04/rafaelalberti.jpg" alt="Imagen de librito mx">`
+            <img src="https://img.freepik.com/fotos-premium/interior-tienda-ropa-mujer-moda-compras_120897-3015.jpg?w=2000" alt="Imagen de librito mx">`
           };
   
           const enviarEmail = transporter.sendMail(mailOptions, function(error, info){

@@ -49,11 +49,16 @@
   <div class="container-fluid my-2">
     <%- include("../partials/flash") %>
   </div> 
+  <a href="/login" class="btn btn-primary">Regresar al inicio de sesión</a>
+
+
   <h1>Recuperar contraseña</h1>
   <form action="/rPass" method="post" class="needs-validation" novalidate>
       <div class="form-outline mb-4">
-        <input type="text" id="email" class="form-control" name="email" required/>
-        <label class="form-label" for="email">Introduce tu electronico</label>
+        <input type="email" id="email" class="form-control" name="email" required/>
+        <label class="form-label" for="email">Introduce tu correo electronico</label>
+        <div class="valid-feedback">¡Los datos son correctos!</div>
+        <div class="invalid-feedback">*Campo requerido(example@hotmail.com)</div>
       </div>   
       <div class="g-recaptcha" data-sitekey="6LefrZwlAAAAAJKs-PXulIxft8jolMoD6E-9Bjnq" name="recaptchaToken" ></div>
    
@@ -81,30 +86,94 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="/rPassUpdate" method="post" class="needs-validation" novalidate>
+        <form action="/rPassUpdate" method="post" class="needs-validation" form onsubmit="return verificarContrasenas()" novalidate>
             <div class="form-outline mb-4">
               <input type="email" id="email" class="form-control" name="email" required/>
-              <label class="form-label" for="email">Introduce tu electronico</label>
+              <label class="form-label" for="email">Introduce tu correo electronico</label>
+              <div class="valid-feedback">¡Los datos son correctos!</div>
+              <div class="invalid-feedback">*Campo requerido(example@hotmail.com)</div>
             </div>  
             <div class="form-outline mb-4">
               <input type="number" id="codePass" class="form-control" name="codePass" required/>
-              <label class="form-label" for="codePass">Introduce tu codigo de verificacion</label>
+              <label class="form-label" for="codePass">Introduce tu codigo de verificacion</label
+                >
             </div>
             <div class="form-outline mb-4">
               <input type="password" id="password" class="form-control" name="password" required/>
               <label class="form-label" for="password">Nueva contraseña</label>
+              <div class="valid-feedback">¡Los datos son correctos!</div>
+              <div class="invalid-feedback">*Campo requerido(al menos un caracter especial y 8 digitos  )</div>
             </div>
+
+
+            
+            <script>
+              document.getElementById("password").addEventListener("input", function() {
+                var input = this.value;
+                var specialChars = /[!@#$%^&*(),.?":{}|<>]/; // Allowed special characters
+            
+                if (input.length < 8 || !specialChars.test(input)) {
+                    this.setCustomValidity("*Tu  contraseña debe de tener al menos 8 caracteres");
+                } else {
+                    this.setCustomValidity("");
+                }
+            });
+            
+            document.getElementById("password").addEventListener("keypress", function(event) {
+                var charCode = event.charCode;
+                if (charCode !== 0 && !((charCode >= 48 && charCode <= 57) || specialChars.test(String.fromCharCode(charCode)))) { // Allow numeric digits and special characters
+                    event.preventDefault();
+                }
+            });
+            </script>
 
            
             <div class="form-outline mb-4">
               <input type="password" id="pwd2" class="form-control" name="pwd2" required/>
               <label class="form-label" for="pwd2">Confirmar contraseña</label>
+              <div class="valid-feedback">¡Los datos son correctos!</div>
+              <div class="invalid-feedback">*Campo requerido(al menos un caracter especial y 8 digitos  )</div>
             </div>
+
+            <script>
+              document.getElementById("pwd2").addEventListener("input", function() {
+                var input = this.value;
+                var specialChars = /[!@#$%^&*(),.?":{}|<>]/; // Allowed special characters
+            
+                if (input.length < 8 || !specialChars.test(input)) {
+                    this.setCustomValidity("*Tu  contraseña debe de tener al menos 8 caracteres");
+                } else {
+                    this.setCustomValidity("");
+                }
+            });
+            
+            document.getElementById("pwd2").addEventListener("keypress", function(event) {
+                var charCode = event.charCode;
+                if (charCode !== 0 && !((charCode >= 48 && charCode <= 57) || specialChars.test(String.fromCharCode(charCode)))) { // Allow numeric digits and special characters
+                    event.preventDefault();
+                }
+            });
+            </script>
+
+
+            <script>
+              function verificarContrasenas() {
+                var password = document.getElementById("password").value;
+                var pwd2 = document.getElementById("pwd2").value;
+                if (password !== pwd2) {
+                  alert("Las contraseñas no coinciden. Por favor, verificalo.");
+                  return false;
+                }
+                return true;
+              }
+            </script>
+
+            
 
             <div class="g-recaptcha" data-sitekey="6LefrZwlAAAAAJKs-PXulIxft8jolMoD6E-9Bjnq" name="recaptchaToken" ></div>
            
             <div  class="btn-container d-flex flex-column w-50 justify-center m-auto">
-              <button style="margin-top: 2rem;" type="submit" class="btn btn-success mb-8">Restablecer</button>
+              <button style="margin-top: 2rem;" type="submit" class="btn btn-success mb-8"   >Restablecer</button>
             </div>
         </form>
       </div>

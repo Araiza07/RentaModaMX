@@ -36,17 +36,36 @@
                   <div class="image-port">
                     <img src="https://toppng.com/uploads/preview/app-icon-set-login-icon-comments-avatar-icon-11553436380yill0nchdm.png" height="90px" width="90px" class="profile-photo m-auto" id="dp-pick">
                   </div>
-                    <input type="file" class="form-control" accept=".jpg, .png, .jpeg" name="image" id="files"/>
+                    <input type="file" class="form-control" accept=".jpg, .png, .jpeg , .gif" name="image" id="files" onchange="return validarExt()"/>
                     <div class="valid-feedback">¡Los datos son correctos(imagen opcional)!</div>
                     
                 </div>
              
                     <div class="form-outline mb-5">
-                      <input type="text" id="nombreCompleto" class="form-control" name="nombreCompleto" required />
-                      <label class="form-label" for="nombreCompleto">Nombre completo</label>
-                      <div class="valid-feedback">¡Los datos son correctos!</div>
-                      <div class="invalid-feedback">*Campo requerido</div>
-                    </div>
+                        <input type="text" id="nombreCompleto" class="form-control" name="nombreCompleto" required oninput="validarTexto()" required />
+                        <label class="form-label" for="nombreCompleto">Nombre completo</label>
+                        <div class="valid-feedback">¡Los datos son correctos!</div>
+                        <div class="invalid-feedback">*Campo requerido</div>
+                      </div>
+
+                      <script>
+
+
+
+  document.getElementById("nombreCompleto").addEventListener("input", function() {
+    var input = this.value.replace(/[^a-zA-Z\s]/g, ''); // Remover caracteres no alfabéticos ni espacios
+    input = input.slice(0, 180); // Limitar a 50 caracteres
+    
+    if (input.trim().length === 0) {
+      this.setCustomValidity("*Campo requerido");
+    } else {
+      this.setCustomValidity("");
+    }
+    
+    this.value = input;
+  });
+                      </script> 
+
                     <div class="form-outline mb-5">
                       <input type="text" id="username" class="form-control" name="username" placeholder="Es muy importante que pienses bien tu nombre usuario" required />
                       <label class="form-label" for="username">Nombre de usuario</label>
@@ -54,6 +73,24 @@
                       <div class="invalid-feedback">*Campo requerido</div>
                     </div>
                   
+
+                    <script>
+
+                      document.getElementById("username").addEventListener("input", function() {
+                        var input = this.value.slice(0, 190); 
+                        
+                        if (input.trim().length === 0) {
+                          this.setCustomValidity("*Campo requerido");
+                        } else {
+                          this.setCustomValidity("");
+                        }
+                        
+                        this.value = input;
+                      });
+                      
+                         </script>
+
+
                 <!-- Email input -->
                 <div class="form-outline mb-5">
                   <input type="email" id="email" class="form-control" name="email" required />
@@ -252,5 +289,24 @@
 //     return true;
 //   }
 </script>
+<script>
+  function validarExt() {
+    var archivoInput = document.getElementById('files');
+    var archivoRuta = archivoInput.value;
+    var extPermitidas = /\.(jpg|jpeg|png|gif)$/i;
+  
+    if (!extPermitidas.exec(archivoRuta)) {
+      alert('Asegúrate de haber seleccionado una imagen válida (jpg, jpeg, png o gif)');
+      archivoInput.value = '';
+      return false;
+    } 
+    
+    
+  }
+  
+</script>
+
+
+
 
 <%- include('../partials/footer') %> 
