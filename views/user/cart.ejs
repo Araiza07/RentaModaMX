@@ -160,22 +160,20 @@
                                                 <div class="invalid-feedback">*Campo es requerido</div>
                                                 
                                                 <script>
-                                                document.getElementById("nombreFac").addEventListener("input", function() {
-                                                  var input = this.value;
-                                                  var regex = /^[a-zA-Z\s]+$/;
-                                                  if (!regex.test(input)) {
-                                                    this.setCustomValidity("*Campo es requerido");
-                                                  } else {
-                                                    this.setCustomValidity("");
-                                                  }
-                                                });
+                                                  document.getElementById("nombreFac").addEventListener("input", function() {
+                                                    var input = this.value.replace(/[^a-zA-Z\s]/g, ''); // Remover caracteres no alfabéticos ni espacios
+                                                    input = input.slice(0, 200); 
+                                                    
+                                                    if (input.trim().length === 0) {
+                                                      this.setCustomValidity("*Campo requerido");
+                                                    } else {
+                                                      this.setCustomValidity("");
+                                                    }
+                                                    
+                                                    this.value = input;
+                                                  });
+                                                  
                                                 
-                                                document.getElementById("nombreFac").addEventListener("keypress", function(event) {
-                                                  var charCode = event.charCode;
-                                                  if (charCode !== 0 && !/^[a-zA-Z\s]+$/.test(String.fromCharCode(charCode))) {
-                                                    event.preventDefault();
-                                                  }
-                                                });
                                                 </script>
                                                 
                                             </div>
@@ -189,22 +187,21 @@
                                                 <div class="invalid-feedback">*Campo es requerido</div>
 
                                                 <script>
-                                                document.getElementById("estado").addEventListener("input", function() {
-                                                var input = this.value;
-                                                var regex = /^[a-zA-Z\s]+$/;
-                                                if (!regex.test(input)) {
-                                                    this.setCustomValidity("*Campo es requerido");
-                                                } else {
-                                                    this.setCustomValidity("");
-                                                }
-                                                });
-
-                                                document.getElementById("estado").addEventListener("keypress", function(event) {
-                                                var charCode = event.charCode;
-                                                if (charCode !== 0 && !/^[a-zA-Z\s]+$/.test(String.fromCharCode(charCode))) {
-                                                    event.preventDefault();
-                                                }
-                                                });
+                                                  document.getElementById("estado").addEventListener("input", function() {
+                                                    var input = this.value.replace(/[^a-zA-Z\s]/g, ''); // Remover caracteres no alfabéticos ni espacios
+                                                    input = input.slice(0, 200); // Limitar a 50 caracteres
+                                                    
+                                                    if (input.trim().length === 0) {
+                                                      this.setCustomValidity("*Campo requerido");
+                                                    } else {
+                                                      this.setCustomValidity("");
+                                                    }
+                                                    
+                                                    this.value = input;
+                                                  });
+                                                  
+                                                  
+                                        
                                                 </script>
 
                                             </div>
@@ -216,23 +213,23 @@
                                                 <div class="invalid-feedback">*Campo es requerido</div>
                                                 
                                                 <script>
-                                                document.getElementById("ciudad").addEventListener("input", function() {
-                                                  var input = this.value;
-                                                  var regex = /^[a-zA-Z\s]+$/;
-                                                  if (!regex.test(input)) {
-                                                    this.setCustomValidity("*Campo es requerido");
-                                                  } else {
-                                                    this.setCustomValidity("");
-                                                  }
-                                                });
-                                                
-                                                document.getElementById("ciudad").addEventListener("keypress", function(event) {
-                                                  var charCode = event.charCode;
-                                                  if (charCode !== 0 && !/^[a-zA-Z\s]+$/.test(String.fromCharCode(charCode))) {
-                                                    event.preventDefault();
-                                                  }
-                                                });
-                                                </script>
+                                                  document.getElementById("nombreCompleto").addEventListener("input", function() {
+                                                    var input = this.value.replace(/[^a-zA-Z\s]/g, ''); // Remover caracteres no alfabéticos ni espacios
+                                                    input = input.slice(0, 50); // Limitar a 50 caracteres
+                                                    
+                                                    if (input.trim().length === 0) {
+                                                      this.setCustomValidity("*Campo requerido");
+                                                    } else {
+                                                      this.setCustomValidity("");
+                                                    }
+                                                    
+                                                    this.value = input;
+                                                  });
+                                                  
+                                                  
+                                                  
+                                                  </script>
+                                             
                                                 
                                             </div>
                                             <div class="form-outline mb-4">
@@ -267,50 +264,53 @@
                                                 <div class="invalid-feedback">*Campo es requerido</div>
                                                 
                                                 <script>
-                                                document.getElementById("colonia").addEventListener("input", function() {
-                                                  var input = this.value;
-                                                  var regex = /^[a-zA-Z\s]+$/;
-                                                  if (!regex.test(input)) {
-                                                    this.setCustomValidity("*Campo es requerido");
-                                                  } else {
-                                                    this.setCustomValidity("");
-                                                  }
-                                                });
-                                                
-                                                document.getElementById("colonia").addEventListener("keypress", function(event) {
-                                                  var charCode = event.charCode;
-                                                  if (charCode !== 0 && !/^[a-zA-Z\s]+$/.test(String.fromCharCode(charCode))) {
-                                                    event.preventDefault();
-                                                  }
-                                                });
+                                                  document.getElementById("colonia").addEventListener("input", function() {
+                                                    var input = this.value.replace(/[^a-zA-Z0-9\s]/g, ''); // Remover caracteres no alfabéticos ni números ni espacios
+                                                    input = input.slice(0, 260);
+                                                    
+                                                    if (input.trim().length === 0) {
+                                                      this.setCustomValidity("*Campo requerido");
+                                                    } else {
+                                                      this.setCustomValidity("");
+                                                    }
+                                                    
+                                                    this.value = input;
+                                                  });
+                                                  
                                                 </script>
                                                 
                                             </div>
                                             <div class="form-outline mb-4">
                                                 <input type="text" id="calle" class="form-control" name="calle" required/>
-                                                <label class="form-label" for="calle">Calle</label>
+                                                <label class="form-label" for="calle">Calle y num</label>
                                                 <div class="valid-feedback">¡Los datos son correctos!</div>
                                                 <div class="invalid-feedback">*Campo es requerido</div>
                                                 
                                                 <script>
-                                                document.getElementById("calle").addEventListener("input", function() {
-                                                  var input = this.value;
-                                                  var regex = /^[a-zA-Z\s]+$/;
-                                                  if (!regex.test(input)) {
-                                                    this.setCustomValidity("*Campo es requerido");
-                                                  } else {
-                                                    this.setCustomValidity("");
-                                                  }
-                                                });
-                                                
-                                                document.getElementById("calle").addEventListener("keypress", function(event) {
-                                                  var charCode = event.charCode;
-                                                  if (charCode !== 0 && !/^[a-zA-Z\s]+$/.test(String.fromCharCode(charCode))) {
-                                                    event.preventDefault();
-                                                  }
-                                                });
+                                                  document.getElementById("calle").addEventListener("input", function() {
+                                                    var input = this.value.replace(/[^a-zA-Z0-9\s]/g, ''); // Remover caracteres no alfabéticos ni números ni espacios
+                                                    input = input.slice(0, 260);
+                                                    
+                                                    if (input.trim().length === 0) {
+                                                      this.setCustomValidity("*Campo requerido");
+                                                    } else {
+                                                      this.setCustomValidity("");
+                                                    }
+                                                    
+                                                    this.value = input;
+                                                  });
+                                                  
                                                 </script>
+
+
                                                 
+                                                
+                                            </div>
+                                            <div class="form-outline mb-4">
+                                              <input type="number" id="finalPrice" value="<%=finalPrice%>" class="form-control" readonly name="finalPrice"/>
+                                              <label class="form-label" for="finalPrice">Precio Final</label>
+                                              <div class="valid-feedback">¡Los datos son correctos!</div>
+                                              <div class="invalid-feedback">*Campo es requerido</div>
                                             </div>
                                             <p>REFERENCIAS DEL DOMICILIO</p>
                                             <div class="form-outline mb-4">
@@ -320,22 +320,19 @@
                                                 <div class="invalid-feedback">*Campo es requerido</div>
                                                 
                                                 <script>
-                                                document.getElementById("ref1").addEventListener("input", function() {
-                                                  var input = this.value;
-                                                  var regex = /^[a-zA-Z\s]+$/;
-                                                  if (!regex.test(input)) {
-                                                    this.setCustomValidity("*Campo es requerido");
-                                                  } else {
-                                                    this.setCustomValidity("");
-                                                  }
-                                                });
-                                                
-                                                document.getElementById("ref1").addEventListener("keypress", function(event) {
-                                                  var charCode = event.charCode;
-                                                  if (charCode !== 0 && !/^[a-zA-Z\s]+$/.test(String.fromCharCode(charCode))) {
-                                                    event.preventDefault();
-                                                  }
-                                                });
+                                                  document.getElementById("ref1").addEventListener("input", function() {
+                                                    var input = this.value.replace(/[^a-zA-Z0-9\s]/g, ''); // Remover caracteres no alfabéticos ni números ni espacios
+                                                    input = input.slice(0, 200);
+                                                    
+                                                    if (input.trim().length === 0) {
+                                                      this.setCustomValidity("*Campo requerido");
+                                                    } else {
+                                                      this.setCustomValidity("");
+                                                    }
+                                                    
+                                                    this.value = input;
+                                                  });
+                                                  
                                                 </script>
                                                 
                                             </div>
@@ -364,12 +361,8 @@
                                                 </script>
                                                 
                                             </div>
-                                            <div class="form-outline mb-4">
-                                              <input type="number" id="finalPrice" value="<%=finalPrice%>" class="form-control" readonly name="finalPrice"/>
-                                              <label class="form-label" for="finalPrice">Precio Final</label>
-                                              <div class="valid-feedback">¡Los datos son correctos!</div>
-                                              <div class="invalid-feedback">*Campo es requerido</div>
-                                            </div>
+                                   
+                                          
                                             
                                             <div class="btn-container d-flex flex-column w-50 justify-center m-auto">
                                               <button style="margin-top: 2rem;" type="submit" class="btn btn-success mb-8">Pagar</button>

@@ -21,6 +21,24 @@
                     <div class="valid-feedback">Buen aspecto!</div>
                     <div class="invalid-feedback">Nombre no valido!</div>
                   </div>
+
+                  <script>
+                    document.getElementById("name").addEventListener("input", function() {
+                      var input = this.value.replace(/[^a-zA-Z0-9\s]/g, ''); // Remover caracteres no alfabéticos ni números ni espacios
+                      input = input.slice(0, 200);
+                      
+                      if (input.trim().length === 0) {
+                        this.setCustomValidity("*Campo requerido");
+                      } else {
+                        this.setCustomValidity("");
+                      }
+                      
+                      this.value = input;
+                    });
+                    
+                  </script>
+
+
                   <div class="form-outline mb-4">
                     <input type="number" id="price" class="form-control" name="price" value="<%=data.price%>" required/>
                     <label class="form-label" for="price">Precio</label>
@@ -29,7 +47,7 @@
                   </div>
                  
                   <div class="form-outline mb-5">
-                    <input type="file" class="form-control" name="image" id="customFile" required/>
+                    <input type="file" class="form-control" name="image" id="customFile" onchange="return validarExt()" required/>
                     <div class="valid-feedback">Buen aspecto!</div>
                     <div class="invalid-feedback">Imagen no valida!</div>
                   </div>
@@ -39,6 +57,25 @@
                     <div class="valid-feedback">Buen aspecto!</div>
                     <div class="invalid-feedback">Descripcion no valida!</div>
                   </div>
+
+                  <script>
+
+                    document.getElementById("desc").addEventListener("input", function() {
+                      var input = this.value.slice(0); 
+                      
+                      if (input.trim().length === 0) {
+                        this.setCustomValidity("*Campo requerido");
+                      } else {
+                        this.setCustomValidity("");
+                      }
+                      
+                      this.value = input;
+                    });
+                    
+                  </script>
+                
+
+
                   <!--Estado del 75% de la historia de usuario Editar producto Se agrega el campo para modificar la categoria-->
                   <div class="form-outline mb-4">
                     <label class="form-label" for="categoria">Categorías</label>
@@ -91,6 +128,25 @@
                   </div>
                   
             </form>
+
+            <script>
+              function validarExt() {
+                var archivoInput = document.getElementById('customFile');
+                var archivoRuta = archivoInput.value;
+                var extPermitidas = /\.(jpg|jpeg|png|gif)$/i;
+              
+                if (!extPermitidas.exec(archivoRuta)) {
+                  alert('Asegúrate de haber seleccionado una imagen válida (jpg, jpeg, png o gif)');
+                  archivoInput.value = '';
+                  return false;
+                } 
+                
+                
+              }
+              
+            </script>
+
+
         </div>
     </div>
   
