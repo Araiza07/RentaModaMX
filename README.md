@@ -53,7 +53,11 @@ adaptación de la interfaz de usuario a diferentes dispositivos o formatos
 
 # Historias de usuario
 
-https://docs.google.com/document/d/19vHq9RUBWvG92oXj1DSd9_aoKI5yaPURxVvnhZiv9S0/edit?usp=sharing
+https://docs.google.com/document/d/1rZOwkekox04JqRubdrN4vjMPb-EIWsuJ/edit?usp=sharing&ouid=102126201687295661706&rtpof=true&sd=true
+
+# Casos de prueba
+
+https://docs.google.com/spreadsheets/d/1Ozw5gI4No8a9wdQprh5KBMEXcVdaW1ts/edit?usp=sharing&ouid=102126201687295661706&rtpof=true&sd=true
 
 # Trello 
 https://trello.com/b/dM9lA1tL/ventamodamx
