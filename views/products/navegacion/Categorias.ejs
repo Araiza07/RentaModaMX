@@ -14,7 +14,7 @@
           <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Inicio</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Categorias</li>
+              <li class="breadcrumb-item active" aria-current="page">Categorías</li>
             </ol>
           </nav>
         </div>
@@ -22,7 +22,7 @@
 
           <form class="d-flex" role="search" action="/buscarCategoria" method="get">
                 <select class="form-select" aria-label="Default select example" name="buscar" required id=" validationCustom04 categoria">
-                  <option selected disabled value="">Selecciona una categoria...</option>
+                  <option selected disabled value="">Selecciona una Categoría...</option>
                   <% for(item of cat){ %> 
                     <option value="<%=item.categorias%>"><%=item.categorias%></option>
                   <% } %>
