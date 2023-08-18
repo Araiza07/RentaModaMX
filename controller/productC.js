@@ -82,10 +82,12 @@ const getNewProduct = async (req, res) => {
     const cat = await Categorias.find({});
     const talla = await Tallas.find({});
     const color = await Colores.find({});
-    res.render("products/new", {cat, talla,color});
+    res.render("products/new", {cat, talla,color,  messages: req.flash()});
   } catch (e) {
     console.log(e);
+    
     res.status(404).render("error/error", { status: "404" });
+   
   }
 };
 
@@ -121,10 +123,16 @@ const createProduct = async (req, res) => {
     }
   } catch (e) {
     console.log(e);
-    res.status(404).render('error/error', { status: '404' });
+    if (error.message === 'Solo se permiten archivos de imagen.') {
+      req.flash('error', error.message);
+      res.redirect('/products/new');
+    } else {
+      const errorMessage = 'Error al subir el archivo: ' + error.message;
+      res.status(400).send(errorMessage);
+      res.status(404).render('error/error', { status: '404' });
+    }
   }
 };
-
 
 
 
@@ -134,6 +142,7 @@ const getProductById = async (req, res) => {
 
     const data = await Product.findById(id).populate("reviews");
     res.render("products/item", { data });
+    
   } catch (e) {
     console.log(e);
     res.status(404).render("error/error", { status: "404" });

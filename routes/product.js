@@ -20,7 +20,32 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage });
+const imageFilter = (req, file, cb) => {
+  const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif'];
+  const extname = path.extname(file.originalname).toLowerCase();
+  
+  if (allowedExtensions.includes(extname)) {
+    cb(null, true);
+  } else {
+      req.flash('status', 'Artículo añadido correctamente!!');
+      res.redirect('/admin/products');
+  }
+};
+
+
+
+const upload = multer({
+  storage: storage,
+  fileFilter: function (req, file, cb) {
+      const ext = path.extname(file.originalname);
+      if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+          return cb(new Error('Tipo de archivo incorrecto'));
+          redirect ()
+          
+      }
+      cb(null, true);
+  }
+});
 
 router.get("/", currentUrl, productC.getIndex);
 router.get("/productAll", currentUrl, productC.getProductAll);
