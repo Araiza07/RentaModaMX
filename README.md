@@ -57,7 +57,7 @@ https://docs.google.com/document/d/1rZOwkekox04JqRubdrN4vjMPb-EIWsuJ/edit?usp=sh
 
 # Casos de prueba
 
-https://docs.google.com/spreadsheets/d/1Ozw5gI4No8a9wdQprh5KBMEXcVdaW1ts/edit?usp=sharing&ouid=102126201687295661706&rtpof=true&sd=true
+https://docs.google.com/spreadsheets/d/1EX99YFAf8DpxuMt-a61olYeb7GToaUgG/edit?usp=sharing&ouid=102126201687295661706&rtpof=true&sd=true
 
 # Trello 
 https://trello.com/b/dM9lA1tL/ventamodamx
